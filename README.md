@@ -59,5 +59,5 @@ KING OF TIME を開くと…1秒後に以下のようなpopupが出てくる（�
 
 ここまでできたら、KING OF TIME から打刻を行ってください。
 
-URLは「https://s2.ta.kingoftime.jp/independent/recorder2/personal/」からのみ動作するようになっているので、
+URLは「`https://s2.ta.kingoftime.jp/independent/recorder2/personal/`」からのみ動作するようになっているので、
 それ以外のURLからKING OF TIMEを利用する場合は、manifest.jsonを修正してください。
