@@ -1,0 +1,13 @@
+{
+    "name": "slackot",
+    "short_name": "slackot",
+    "version": "1.0",
+    "manifest_version": 2,
+
+    "content_scripts": [
+        {
+            "matches": [ "https://s2.ta.kingoftime.jp/independent/recorder2/personal/" ],
+            "js": [ "script.js" ]
+        }
+    ]
+}
