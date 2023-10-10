@@ -21,17 +21,6 @@ KING OF TIMEの出退勤をSlackにポストするchrome拡張機能
 git clone git@github.com:okmtdev/KINTAI_slack_from_KING_OF_TIME.git
 ```
 
-個別で用意する変数があるので、これを集めてください。お願いします。
-
-変数と集め方
-- `HOOKS_URL`: Slack Application > OAuth & Permissions > Bot User OAuth Token
-- `CHANNEL`: チャンネル名。正しくなくても動作はする。
-- `CHANNEL_ID`: チャンネルのID。チャンネルで右クリックでリンクをコピーすれば分かる
-- `IN_WORK_MESSAGE`: 出勤時メッセージ。お好きに
-- `OUT_WORK_MESSAGE`: 退勤時メッセージ。お好きに
-
-集めれたら、extension/script.js を修正してください
-
 「chrome://extensions/」をChromeのアドレスバーに打ち込む
 
 右上にあるデベロッパーモードを…
@@ -50,12 +39,19 @@ ON!
 
 ![extension](https://user-images.githubusercontent.com/141133794/271910456-f7b0ea6f-feba-4703-a70e-6b8c276922c3.png)
 
+KING OF TIME を開き、Slackのアイコンマークの「KINTAI_SLACK_FROM_KING_OF_TIME」をクリックする
 
-KING OF TIME を開くと…1秒後に以下のようなpopupが出てくる（このpopupは消せます）
+![application](https://user-images.githubusercontent.com/141133794/273924780-e8bc82c5-0e38-404a-924e-6a3731cc89ca.png)
 
-![kingoftme](https://user-images.githubusercontent.com/141133794/271910595-737511d6-2ef3-436d-8b61-6a73db97eba6.png)
+|変数|集め方|
+|-|-|
+|Hooks URL|Slack Application > OAuth & Permissions > Bot User OAuth Token|
+|出勤時メッセージ|お好きに。|
+|退勤時メッセージ|お好きに。|
 
-これは拡張機能が読み込まれている証拠です
+「テスト投稿」ボタンで「テスト成功！」というメッセージをボットが呟いてくれます。
+
+![slacktest](https://user-images.githubusercontent.com/141133794/273924810-4eaeeb6d-3aa9-4412-9290-abb40c05bf94.png)
 
 ここまでできたら、KING OF TIME から打刻を行ってください。
 
