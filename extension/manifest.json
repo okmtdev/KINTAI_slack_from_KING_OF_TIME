@@ -3,11 +3,17 @@
     "short_name": "KINTAI_SLACK_FROM_KING_OF_TIME",
     "version": "1.0",
     "manifest_version": 2,
-
+    "browser_action": {
+        "default_icon": {
+            "16": "main.png"
+        },
+        "default_popup": "main.html"
+    },
     "content_scripts": [
         {
             "matches": [ "https://s2.ta.kingoftime.jp/independent/recorder2/personal/" ],
             "js": [ "script.js" ]
         }
-    ]
+    ],
+    "permissions": ["storage"]
 }

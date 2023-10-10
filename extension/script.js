@@ -1,39 +1,92 @@
-const HOOKS_URL = ''; // Bot作成後、Slack Application > OAuth & Permissions > Bot User OAuth Token
-const CHANNEL = ''; // チャンネル名。正しくなくても動作はする。
-const CHANNEL_ID = '';  // チャンネルのID。チャンネルで右クリックでリンクをコピーすれば分かる
-const IN_WORK_MESSAGE = '今日も一日頑張るぞい！:ok_neko:';
-const OUT_WORK_MESSAGE = 'お疲れ様です！:nekochan:';
+function getElement() {
+    chrome.storage.local.get(['HOOKS_URL', 'IN_WORK_MESSAGE', 'OUT_WORK_MESSAGE'], function (result) {
+        if (result.HOOKS_URL) {
+        document.getElementById('hooksURL').value = result.HOOKS_URL;
+        }
+        if (result.IN_WORK_MESSAGE) {
+            document.getElementById('inWorkMessage').value = result.IN_WORK_MESSAGE;
+        }
+        if (result.OUT_WORK_MESSAGE) {
+            document.getElementById('outWorkMessage').value = result.OUT_WORK_MESSAGE;
+        }
+    });
+
+    document.getElementById('save').addEventListener('click', function () {
+        const hooksURLValue = document.getElementById('hooksURL').value;
+        const inWorkMessageValue = document.getElementById('inWorkMessage').value;
+        const outWorkMessageValue = document.getElementById('outWorkMessage').value;
+
+        // Save to chrome.storage.local
+        chrome.storage.local.set({
+            'HOOKS_URL': hooksURLValue,
+            'IN_WORK_MESSAGE': inWorkMessageValue,
+            'OUT_WORK_MESSAGE': outWorkMessageValue
+        }, function () {
+            console.log('saved!')
+            alert('Settings saved!');
+        });
+    });
+
+    document.getElementById('test').addEventListener('click', function () {
+        postToSlackTest();
+    });
+}
+
+function setKintaiListener() {
+    let inw = document.getElementsByClassName('record-btn-inner record-clock-in');
+    inw[0].addEventListener('click', function () {
+        postToSlackInWork();
+    }, false);
+
+    let out = document.getElementsByClassName('record-btn-inner record-clock-out');
+    out[0].addEventListener('click', function () { 
+        postToSlackOutWork();
+    }, false); 
+}
 
 
-async function postToSlack(message) {
-	const data = {
-        text: message
-    };
+function postToSlackTest() {
+    chrome.storage.local.get("HOOKS_URL", function (value) {
+        const url = value.HOOKS_URL;
+        const testMessage = "テスト成功！";
 
-    fetch(HOOKS_URL, {
-        method: 'POST',
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        // 下のメッセージはお好みでコメントアウトしてください。
-        window.alert(`"${CHANNEL}"にメッセージ "${message}" が投稿されました。`);
-    })
-    .catch(error => {
-        console.error('Slackへのリクエストがエラーになりました。:', error);
+        myFetch(url, testMessage);
     });
 };
 
-function set_event_listener() {
-    const inw = document.getElementsByClassName('record-btn-inner record-clock-in');
-    inw[0].addEventListener('click', function() { postToSlack(IN_WORK_MESSAGE) }, false);
 
-    var out = document.getElementsByClassName('record-btn-inner record-clock-out');
-    out[0].addEventListener('click', function(){postToSlack(OUT_WORK_MESSAGE)}, false);
+function postToSlackInWork() {
+    chrome.storage.local.get(["HOOKS_URL", "IN_WORK_MESSAGE"], function (value) {
+        const url = value.HOOKS_URL;
+        const inMessage = value.IN_WORK_MESSAGE;
 
-    // 下のメッセージはお好みでコメントアウトしてください。
-    window.alert(`打刻時に${CHANNEL}チャンネルに出動ログが表示されます。`);
+        myFetch(url, inMessage);
+    });
 };
 
-setTimeout(() => set_event_listener(), 1000);
+
+function postToSlackOutWork() {
+    chrome.storage.local.get(["HOOKS_URL", "OUT_WORK_MESSAGE"], function (value) {
+        const url = value.HOOKS_URL;
+        const outMessage = value.OUT_WORK_MESSAGE;
+
+        myFetch(url, outMessage);
+    });
+};
+
+
+async function myFetch(url, message) {
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({text: message})
+    })
+        .catch(error => {
+            console.error('Slackへのリクエストがエラーになりました。:', error);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    getElement();
+});
+
+setTimeout(() => setKintaiListener(), 1000);

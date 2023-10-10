@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div style="width: 550px">
+    <div class="field">
+      <p><img src="banner.png"></p loading="lazy">
+      <input type="button" value="設定を保存" id="save" class="button">
+      <input type="button" value="テスト投稿" id="test" class="button">
+    </div>
+    <form id="settingsForm">
+      <label>
+        <a>Hooks URL: </a>
+        <input type="text" id="hooksURL" class="radius" style="width: 400px"
+          value="https://hooks.slack.com/services/HOGEHOGEHOGE">
+      </label><br>
+      <label>
+        <a>出勤時メッセージ: </a>
+        <input type="text" id="inWorkMessage" class="radius" style="width: 400px" value="今日も一日頑張るぞぃ！:ok_neko:">
+      </label><br>
+      <label>
+        <a>退勤時メッセージ: </a>
+        <input type="text" id="outWorkMessage" class="radius" style="width: 400px" value="おつかれさまでした！:nekochan:">
+      </label><br>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+<style>
+  .field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 20px;
+
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  .radius {
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid #a3d2ff;
+  }
+
+  .radius:focus {
+    outline: 0;
+    border-color: #5277ff;
+  }
+
+  a {
+    font-size: 16px;
+  }
+
+  .button {
+    display: inline-block;
+    border-radius: 5%;
+    font-size: 16pt;
+    text-align: center;
+    cursor: pointer;
+    padding: 12px 12px;
+    background: #0d6efd;
+    color: #ffffff;
+    line-height: 1em;
+    transition: .3s;
+    border: 2px solid #ffffff;
+    margin: 0 10px;
+  }
+
+  .button:hover {
+    box-shadow: none;
+    color: #000066;
+    background: #ffffff;
+  }
+</style>
